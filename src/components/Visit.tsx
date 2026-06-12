@@ -14,7 +14,7 @@ export default function Visit() {
   const { locale } = useLocale();
   const v = COPY.visit;
 
-  const mapsSrc = `https://www.google.com/maps?q=${BRAND.lat},${BRAND.lng}&z=17&output=embed`;
+  const mapsSrc = `https://maps.google.com/maps?q=${BRAND.lat}%2C${BRAND.lng}&t=&z=17&ie=UTF8&iwloc=&output=embed`;
 
   return (
     <section id="visit" className="relative bg-ivory text-deep py-28 lg:py-36 border-t border-[var(--rule)] overflow-hidden">

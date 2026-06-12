@@ -16,7 +16,7 @@ export default function River() {
       <div className="absolute inset-0 caustics" aria-hidden />
 
       {/* Faint sunset photograph behind the text */}
-      <div className="absolute inset-0 opacity-25 pointer-events-none">
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={PHOTOS.sunsetWide}
@@ -27,7 +27,7 @@ export default function River() {
           className="absolute inset-0 w-full h-full object-cover object-[50%_60%]"
         />
         <div className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, rgba(247,242,232,0.85) 0%, rgba(247,242,232,0.65) 50%, rgba(247,242,232,0.9) 100%)' }} />
+          style={{ background: 'linear-gradient(180deg, rgba(247,242,232,0.94) 0%, rgba(247,242,232,0.82) 50%, rgba(247,242,232,0.96) 100%)' }} />
       </div>
 
       <div className="relative mx-auto max-w-[1180px] px-6 lg:px-10 text-center">
