@@ -39,7 +39,7 @@ export const BRAND = {
   email: 'hansariverhouse@gmail.com',
   instagramHandle: '@hansariverhouse',
   instagramUrl: 'https://www.instagram.com/hansariverhouse/',
-  facebookUrl: 'https://www.facebook.com/hansariverhouse8/',
+  facebookUrl: 'https://www.facebook.com/profile.php?id=61563258160136',
   linktreeUrl: 'https://linktr.ee/hansariverhouse',
 
   addressLine1: '1616 Song Wat Road',
@@ -63,9 +63,61 @@ export const BRAND = {
     minSpend: '฿400 per person',
   },
 
+  tiktokUrl: 'https://www.tiktok.com/@hansariver',
+  tiktokHandle: '@hansariver',
+
+  /** Photo credit — Trip Moment Nov 2025, by Travel Expert Chia Nicholas (@nickeatsg). */
+  photoCredit: 'Photographs · Nick (@nickeatsg) via Trip.com Moments, November 2025',
+  photoCreditUrl: 'https://us.trip.com/moments/detail/bangkok-191-137501114/',
+
   /** Canonical site URL. Update on custom-domain attach. */
   domain: 'hansa-river-house.vercel.app',
 };
+
+
+/* ===================================================================
+ *  PHOTOS — verified images from press features, served via wsrv.nl
+ *  for WebP + auto-resize. Each entry is a wsrv proxy URL of an
+ *  upstream Trip.com / press CDN photo. Owner can swap to /public/
+ *  paths once they supply their own photography.
+ * =================================================================== */
+const wsrv = (upstream: string, w = 1600) =>
+  `https://wsrv.nl/?url=${encodeURIComponent(upstream)}&w=${w}&output=webp&q=82`;
+
+// Upstream Trip.com photo URLs (from Chia Nicholas's Nov 2025 Trip Moment).
+const T = (slug: string) =>
+  `https://ak-d.tripcdn.com/images/${slug}_W_1280_0_R5_Q80.jpg`;
+
+export const PHOTOS = {
+  // Sunset terrace silhouette — the iconic Hansa view. Guest sitting on
+  // a bamboo stool facing the Chao Phraya at sunset.
+  sunset:      wsrv(T('1mi5d224x969jv4c64539'), 1600),
+  sunsetWide:  wsrv(T('1mi5d224x969jv4c64539'), 2200),
+
+  // Full table on the pink terrace railing, river behind — Pad Thai +
+  // grilled river prawn, pad sam meun, tom yum, morning glory, coconut.
+  tableSpread: wsrv(T('1mi1z224x969j0r0e6045'), 1800),
+
+  // Second sunset shot — wider crop, with guest plus Marc Jacobs tote.
+  sunsetAlt:   wsrv(T('1mi6e224x969jcjyhF530'), 1600),
+
+  // Individual signature dishes
+  padThai:     wsrv(T('1mi2j224x969ifbib8E5C'), 1100),
+  tomYum:      wsrv(T('1mi6b224x969jh5dm9877'), 1100),
+  padSamMeun:  wsrv(T('1mi05224x969jh5dlA871'), 1100),
+  morningGlory:wsrv(T('1mi5h224x969jf9af78F9'), 1100),
+};
+
+/** Gallery grid — all 7 images for the Instagram-style mosaic. */
+export const GALLERY = [
+  { key: 'sunset',       src: PHOTOS.sunset,       alt: 'Sunset over the Chao Phraya from the Hansa River House terrace' },
+  { key: 'tableSpread',  src: PHOTOS.tableSpread,  alt: 'A full Thai table on the riverfront terrace: pad Thai, tom yum, pad sam meun, morning glory, fresh coconut' },
+  { key: 'padThai',      src: PHOTOS.padThai,      alt: 'Pad Thai with grilled river prawn at Hansa River House' },
+  { key: 'tomYum',       src: PHOTOS.tomYum,       alt: 'Tom Yum Kung in a deep cobalt ceramic bowl at Hansa River House' },
+  { key: 'padSamMeun',   src: PHOTOS.padSamMeun,   alt: 'Pad Sam Meun — three-stinky stir-fry with petai beans and river prawns' },
+  { key: 'morningGlory', src: PHOTOS.morningGlory, alt: 'Crispy morning glory salad with shrimp relish and a fresh coconut' },
+  { key: 'sunsetAlt',    src: PHOTOS.sunsetAlt,    alt: 'Sunset from the terrace, guest seated facing the Chao Phraya' },
+];
 
 /* ===================================================================
  *  NAV
@@ -73,6 +125,7 @@ export const BRAND = {
 export const NAV_ITEMS: { href: string; label: { en: string; th: string } }[] = [
   { href: '#story',     label: { en: 'The House',  th: 'เรือนแห่งนี้' } },
   { href: '#menu',      label: { en: 'The Table',  th: 'สำรับ' } },
+  { href: '#gallery',   label: { en: 'Gallery',    th: 'ภาพ' } },
   { href: '#occasions', label: { en: 'Occasions',  th: 'โอกาสพิเศษ' } },
   { href: '#river',     label: { en: 'The River',  th: 'แม่น้ำ' } },
   { href: '#visit',     label: { en: 'Visit',      th: 'การเดินทาง' } },
@@ -135,6 +188,7 @@ export const COPY = {
     signatures: [
       {
         key: 'pad-thai-prawn',
+        photo: PHOTOS.padThai,
         name: { en: 'Pad Thai · grilled river prawn',  th: 'ผัดไทย กุ้งแม่น้ำเผา' },
         desc: {
           en: 'Stir-fried rice noodles, tamarind, tofu, bean sprouts — topped with a whole smoky river prawn.',
@@ -143,6 +197,7 @@ export const COPY = {
       },
       {
         key: 'tom-yum-kung',
+        photo: PHOTOS.tomYum,
         name: { en: 'Tom Yum Kung · five shrimp',       th: 'ต้มยำกุ้ง 5 ตัว' },
         desc: {
           en: 'Lemongrass, galangal, kaffir lime, fresh chilli — the kind of broth you order twice.',
@@ -150,19 +205,20 @@ export const COPY = {
         },
       },
       {
-        key: 'crab-omelette',
-        name: { en: 'Crabmeat omelette · over rice',   th: 'ข้าวไข่เจียวปู' },
+        key: 'pad-sam-meun',
+        photo: PHOTOS.padSamMeun,
+        name: { en: 'Pad Sam Meun · stinky beans & prawns', th: 'ผัดสามเหม็น สะตอ-กุ้ง-กะปิ' },
         desc: {
-          en: 'Sweet crab, silky egg, fluffy rice. Every table orders it.',
-          th: 'ปูก้อนหวาน ไข่นุ่ม ข้าวร้อน · ทุกโต๊ะสั่ง',
+          en: 'Petai beans, garlic chives, shrimp paste, river prawns — bold, umami, unforgettable.',
+          th: 'สะตอ ใบกระเทียม กะปิ กุ้งแม่น้ำ · รสจัด อูมามิ จดจำได้',
         },
       },
     ],
     larger: [
       { name: { en: 'Crispy morning glory · spicy salad', th: 'ยำผักบุ้งทอดกรอบ' },
         desc: { en: 'Deep-fried morning glory, shrimp, herbs, lime.', th: 'ผักบุ้งทอดกรอบ กุ้ง สมุนไพร มะนาว' } },
-      { name: { en: 'Pad Sam Meun · stinky beans & prawns', th: 'ผัดสามเหม็น (สะตอ กุ้ง กะปิ)' },
-        desc: { en: 'Petai beans, garlic chives, shrimp paste — bold and unmissable.', th: 'สะตอ ใบกระเทียม กะปิ · จานรสจัด' } },
+      { name: { en: 'Crab omelette · over jasmine rice', th: 'ข้าวไข่เจียวปู' },
+        desc: { en: 'Sweet crab, silky egg, fluffy rice. Every table orders it.', th: 'ปูก้อนหวาน ไข่นุ่ม ข้าวร้อน · ทุกโต๊ะสั่ง' } },
       { name: { en: 'Massaman curry · slow-cooked',    th: 'แกงมัสมั่น เคี่ยวช้า' },
         desc: { en: 'Tender beef or chicken, peanuts, potatoes, cardamom.', th: 'เนื้อหรือไก่เปื่อย ถั่วลิสง มันฝรั่ง กระวาน' } },
       { name: { en: 'Steamed seabass · lime sauce',    th: 'ปลากะพงนึ่งมะนาว' },
