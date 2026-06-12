@@ -49,7 +49,10 @@ export default function Menu() {
           {m.signatures.map((s, i) => (
             <Reveal key={s.key} delay={i * 0.12}>
               <article className="relative h-full bg-cream border border-[var(--rule-gold)] overflow-hidden group transition-colors duration-700 ease-glide hover:border-gold">
-                {/* Photo */}
+                {/* Photo — same desaturate-on-rest treatment as the
+                    Gallery tiles so the dish photos read as editorial
+                    plates rather than full-saturation feed shots.
+                    Hover restores full colour over the same cadence. */}
                 <div className="relative aspect-[5/4] overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -58,7 +61,12 @@ export default function Menu() {
                     alt={`${s.name.en} — ${s.desc.en}`}
                     loading="lazy"
                     decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover object-[50%_50%] group-hover:scale-[1.03] transition-transform duration-[2200ms] ease-glide"
+                    className="absolute inset-0 w-full h-full object-cover object-[50%_50%] group-hover:scale-[1.03] transition-[transform,filter] duration-[2200ms] ease-glide"
+                    style={{
+                      filter: 'saturate(0.35) contrast(0.94) sepia(0.18) brightness(0.96)',
+                    }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.filter = 'saturate(1) contrast(1) sepia(0) brightness(1)'; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.filter = 'saturate(0.35) contrast(0.94) sepia(0.18) brightness(0.96)'; }}
                   />
                   <div className="absolute inset-0 pointer-events-none"
                     style={{ background: 'linear-gradient(180deg, rgba(30,42,48,0) 65%, rgba(30,42,48,0.32) 100%)' }} />
