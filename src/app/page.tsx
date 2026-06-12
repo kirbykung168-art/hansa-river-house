@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
+import PressStrip from '@/components/PressStrip';
 import Story from '@/components/Story';
 import Menu from '@/components/Menu';
 import Gallery from '@/components/Gallery';
@@ -25,6 +26,7 @@ export default function HomePage() {
     <>
       <Nav />
       <Hero />
+      <PressStrip />
       <Story />
       <Menu />
       <Gallery />
