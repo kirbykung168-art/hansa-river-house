@@ -15,9 +15,18 @@ import Reveal from './Reveal';
  * the pink-painted railing with the river behind — reads more like
  * an editorial Plate I dossier image here than it does as a hero.
  * The hero now carries the lighter sunset-terrace shot instead.
+ *
+ * Photo treatment: same desaturate-on-rest, restore-on-hover
+ * editorial filter applied to Gallery + Menu signatures, so the
+ * page reads as a single editorial volume. Before this pass the
+ * Story Plate I was the only un-toned dish photo on the page and
+ * pulled visual focus off the manifesto and the gold drop-cap H.
  */
 export default function Story() {
   const { locale } = useLocale();
+
+  const restingFilter = 'saturate(0.35) contrast(0.94) sepia(0.18) brightness(0.96)';
+  const hoverFilter   = 'saturate(1) contrast(1) sepia(0) brightness(1)';
 
   return (
     <section id="story" className="relative bg-cream text-deep py-28 lg:py-40 overflow-hidden">
@@ -47,7 +56,7 @@ export default function Story() {
             lang={locale}
           >
             <span className="text-gold mr-1">&ldquo;</span>
-            {COPY.story.pullQuote[locale].replace(/[“”"]/g, '')}
+            {COPY.story.pullQuote[locale].replace(/[""'']/g, '')}
             <span className="text-gold ml-1">&rdquo;</span>
           </blockquote>
           <p className="font-sans text-[11px] uppercase tracking-[0.32em] text-gold mt-5 pl-6">
@@ -63,11 +72,13 @@ export default function Story() {
                 src={PHOTOS.tableSpread}
                 srcSet={`${PHOTOS.tableSpread} 1100w`}
                 sizes="(max-width: 1024px) 100vw, 40vw"
-                alt="The full Hansa River House table on the pink-painted terrace at sunset — pad Thai with grilled river prawn, tom yum, pad sam meun, morning glory salad and a fresh coconut, the Chao Phraya beyond."
+                alt="The full Hansa River House table on the pink-painted terrace at sunset, with pad Thai, tom yum, pad sam meun, morning glory salad and a fresh coconut, the Chao Phraya beyond."
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-[55%_55%]"
-                style={{ filter: 'saturate(0.92) contrast(0.98)' }}
+                className="absolute inset-0 w-full h-full object-cover object-[55%_55%] transition-[filter] duration-[2200ms] ease-glide"
+                style={{ filter: restingFilter }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.filter = hoverFilter; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.filter = restingFilter; }}
               />
               {/* Brass corner brackets */}
               <span aria-hidden className="absolute pointer-events-none" style={{ top: 12, left: 12, width: 26, height: 26, borderTop: '1.2px solid var(--gold)', borderLeft: '1.2px solid var(--gold)' }} />
@@ -76,10 +87,8 @@ export default function Story() {
               <div className="absolute inset-0 pointer-events-none"
                 style={{ background: 'linear-gradient(180deg, rgba(30,42,48,0) 60%, rgba(30,42,48,0.30) 100%)' }} />
             </div>
-            {/* mt-7 (not mt-5) so the caption clearly sits as figure
-                metadata rather than overlay text against the photo's
-                lower edge — gives it breathing room to read as an
-                editorial credit line. */}
+            {/* mt-7 so the caption reads as figure metadata rather
+                than overlay text against the photo's lower edge. */}
             <figcaption className="font-sans text-[10.5px] uppercase tracking-[0.32em] text-deep/55 mt-7">
               Plate I · the table on the river
             </figcaption>

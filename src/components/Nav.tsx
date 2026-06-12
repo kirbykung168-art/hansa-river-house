@@ -57,7 +57,7 @@ export default function Nav() {
         <div className="mx-auto max-w-[1480px] px-6 lg:px-10 h-[80px] flex items-center justify-between gap-6">
           <a
             href="#top"
-            className="display text-[22px] lg:text-[26px] text-deep flex items-center gap-3 hover:text-gold transition-colors duration-700 ease-glide"
+            className="display text-[22px] lg:text-[26px] text-deep flex items-center gap-3 hover:text-gold transition-colors duration-700 ease-glide whitespace-nowrap"
             aria-label={BRAND.name}
           >
             <SwanMark />
@@ -65,13 +65,18 @@ export default function Nav() {
             <span className="sm:hidden">Hansa</span>
           </a>
 
-          <nav className="hidden lg:flex items-center gap-9">
+          {/* whitespace-nowrap on each item — under tight viewports the
+              dark-section reveal animations can briefly squeeze the
+              flex children and two-word items ("THE HOUSE", "THE
+              TABLE", "THE RIVER") collapse onto two lines, which
+              re-flowed the whole header. nowrap prevents that. */}
+          <nav className="hidden lg:flex items-center gap-9 flex-nowrap">
             {NAV_ITEMS.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 className={clsx(
-                  'font-sans text-[11.5px] uppercase tracking-[0.32em] transition-colors duration-700 ease-glide relative',
+                  'font-sans text-[11.5px] uppercase tracking-[0.32em] transition-colors duration-700 ease-glide relative whitespace-nowrap',
                   active === item.href ? 'text-gold' : 'text-deep/70 hover:text-deep',
                 )}
                 lang={locale}

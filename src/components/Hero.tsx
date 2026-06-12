@@ -53,8 +53,14 @@ export default function Hero() {
           alt="A guest seated on a bamboo stool on the Hansa River House terrace at golden hour, facing the Chao Phraya as the sky turns gold and a long-tail boat slides past."
           loading="eager"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-cover object-[55%_45%]"
-          style={{ filter: 'saturate(0.78) contrast(0.96) brightness(1.04)' }}
+          /* object-position 70%/35%: shift the focal point of the
+             photograph rightward and upward so the river, sunset
+             glow and far bank fill the visible left third of the
+             hero — not the foreground bag and figure. This was
+             the audit miss: previous 55%/45% cropped to the tote
+             bag rather than to the brand promise (the river). */
+          className="absolute inset-0 w-full h-full object-cover object-[70%_35%]"
+          style={{ filter: 'saturate(0.7) contrast(0.96) brightness(1.05)' }}
         />
         {/* Heavy ivory veil — slightly cooler now that the photo is sunset-warm */}
         <div
