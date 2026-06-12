@@ -1,13 +1,13 @@
 'use client';
 
-import { COPY, BRAND } from '@/lib/content';
+import { COPY, BRAND, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
 /**
- * OCCASIONS — the high-value revenue section. Slate-blue background
- * (river surface "breathing"), warm-gold celebration accents, an
- * enquire-by-email CTA that pre-fills the body.
+ * OCCASIONS — slate-blue section with the alt sunset terrace shot
+ * full-bleed behind a dark wash. The card on the right holds capacity
+ * tiers + email enquiry CTA.
  */
 export default function Occasions() {
   const { locale } = useLocale();
@@ -17,14 +17,36 @@ export default function Occasions() {
   const mailto = `mailto:${BRAND.email}?subject=${subject}&body=${body}`;
 
   return (
-    <section id="occasions" className="relative text-ivory py-28 lg:py-36 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #3F5560 0%, #1E2A30 100%)' }}>
-      {/* River surface breathing */}
+    <section id="occasions" className="relative text-ivory py-28 lg:py-36 overflow-hidden">
+      {/* Background photograph */}
+      <div className="absolute inset-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={PHOTOS.sunsetAlt}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover object-[50%_50%]"
+        />
+        {/* Dark slate wash */}
+        <div className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(110deg, rgba(30,42,48,0.94) 0%, rgba(63,85,96,0.88) 55%, rgba(30,42,48,0.92) 100%)',
+          }} />
+        {/* Soft gold caustic */}
+        <div className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(900px 600px at 75% 30%, rgba(184,146,75,0.18) 0%, rgba(184,146,75,0) 60%)',
+          }} />
+      </div>
       <div className="absolute inset-0 river-breathe pointer-events-none" aria-hidden />
-      {/* A faint gold leaf curl at top-left */}
-      <svg viewBox="0 0 240 160" className="absolute top-0 left-0 w-[260px] h-auto opacity-25" aria-hidden>
+
+      {/* faint gold leaf curl at top-left */}
+      <svg viewBox="0 0 240 160" className="absolute top-0 left-0 w-[260px] h-auto opacity-30" aria-hidden>
         <path d="M 20 80 C 60 30, 140 30, 200 70 C 180 90, 130 95, 90 90 C 65 87, 40 92, 20 80 Z"
-          fill="none" stroke="var(--gold)" strokeWidth="0.8" />
+          fill="none" stroke="var(--gold-l)" strokeWidth="0.8" />
       </svg>
 
       <div className="relative mx-auto max-w-[1480px] px-6 lg:px-10 grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-start">
@@ -47,7 +69,7 @@ export default function Occasions() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="border border-gold-l/35 p-8 lg:p-10 bg-deep/30 backdrop-blur-sm">
+          <div className="border border-gold-l/35 p-8 lg:p-10 bg-deep/55 backdrop-blur-sm">
             <p className="eyebrow text-gold-l border-b border-gold-l/30 pb-4 mb-7">
               {locale === 'en' ? 'Capacity' : 'จำนวนที่นั่ง'}
             </p>

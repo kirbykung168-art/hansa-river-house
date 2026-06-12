@@ -1,13 +1,14 @@
 'use client';
 
-import { COPY } from '@/lib/content';
+import { COPY, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
 /**
- * STORY — cream section, editorial drop-cap, framed pull-quote on the
- * Passport & Stamps press line. Asymmetric grid: type fills the left
- * 7/12, a quiet riverfront caption sits in the right 5/12.
+ * STORY — cream section. Sunset terrace photograph on the right
+ * (vertical 4:5 crop, gold corner brackets), pull-quote + drop-cap
+ * body on the left. The pull-quote is the verbatim Passport & Stamps
+ * line about long-tail boats and a fresh coconut.
  */
 export default function Story() {
   const { locale } = useLocale();
@@ -33,27 +34,45 @@ export default function Story() {
           >
             {COPY.story.body[locale]}
           </p>
-        </Reveal>
 
-        <Reveal delay={0.2} className="lg:col-span-5 lg:pl-6 lg:border-l border-[var(--rule-gold)] lg:mt-24">
           <blockquote
-            className="display-italic text-deep leading-[1.3] max-w-[28ch]"
-            style={{ fontSize: 'clamp(22px, 2.8vw, 34px)' }}
+            className="display-italic text-deep leading-[1.3] max-w-[34ch] mt-12 border-l-2 border-gold pl-6"
+            style={{ fontSize: 'clamp(22px, 2.6vw, 30px)' }}
             lang={locale}
           >
             <span className="text-gold mr-1">&ldquo;</span>
             {COPY.story.pullQuote[locale].replace(/[“”"]/g, '')}
             <span className="text-gold ml-1">&rdquo;</span>
           </blockquote>
-          <p className="font-sans text-[11px] uppercase tracking-[0.32em] text-gold mt-6">
+          <p className="font-sans text-[11px] uppercase tracking-[0.32em] text-gold mt-5 pl-6">
             — {COPY.story.pullAttribution}
           </p>
-          {/* Decorative gold corner */}
-          <div className="mt-12 flex items-center gap-4">
-            <span className="block w-12 h-px bg-gold" />
-            <span className="block w-1.5 h-1.5 bg-gold rotate-45" />
-            <span className="block w-3 h-px bg-gold/55" />
-          </div>
+        </Reveal>
+
+        <Reveal delay={0.2} className="lg:col-span-5 lg:mt-16">
+          <figure className="relative">
+            <div className="relative aspect-[4/5] overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={PHOTOS.sunset}
+                srcSet={`${PHOTOS.sunset} 900w`}
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                alt="A guest seated on a bamboo stool on the Hansa River House terrace at sunset, facing the Chao Phraya River as the sky turns gold."
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover object-[50%_50%]"
+              />
+              {/* Brass corner brackets */}
+              <span aria-hidden className="absolute pointer-events-none" style={{ top: 12, left: 12, width: 26, height: 26, borderTop: '1.2px solid var(--gold)', borderLeft: '1.2px solid var(--gold)' }} />
+              <span aria-hidden className="absolute pointer-events-none" style={{ bottom: 12, right: 12, width: 26, height: 26, borderBottom: '1.2px solid var(--gold)', borderRight: '1.2px solid var(--gold)' }} />
+              {/* Soft warm vignette */}
+              <div className="absolute inset-0 pointer-events-none"
+                style={{ background: 'linear-gradient(180deg, rgba(30,42,48,0) 60%, rgba(30,42,48,0.30) 100%)' }} />
+            </div>
+            <figcaption className="font-sans text-[10.5px] uppercase tracking-[0.32em] text-deep/55 mt-5">
+              Plate I · the river at sunset
+            </figcaption>
+          </figure>
         </Reveal>
       </div>
     </section>

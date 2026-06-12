@@ -5,7 +5,8 @@ import { useLocale } from './LanguageProvider';
 
 /**
  * FOOTER — quiet, three-column. Brand tagline, nav anchors, social.
- * Hairline gold rule, copyright row at the bottom.
+ * Includes TikTok handle + a photo-credit line for the Nick @nickeatsg
+ * press photographs used across the site.
  */
 export default function Footer() {
   const { locale } = useLocale();
@@ -35,14 +36,21 @@ export default function Footer() {
               {item.label[locale]}
             </a>
           ))}
+          <a href="/sources"
+            className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide"
+            lang={locale}
+          >
+            {locale === 'en' ? 'Sources · what we verified' : 'แหล่งอ้างอิง'}
+          </a>
         </nav>
 
         <div className="flex flex-col gap-3">
           <p className="eyebrow text-gold mb-2">{locale === 'en' ? 'Elsewhere' : 'ติดต่อ'}</p>
-          <a href={BRAND.instagramUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">Instagram · @hansariverhouse</a>
+          <a href={BRAND.instagramUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">Instagram · {BRAND.instagramHandle}</a>
           <a href={BRAND.facebookUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">Facebook</a>
+          <a href={BRAND.tiktokUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">TikTok · {BRAND.tiktokHandle}</a>
           <a href={BRAND.linktreeUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">Linktree</a>
-          <a href="/sources" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">Sources · what we verified</a>
+          <a href={`mailto:${BRAND.email}`} className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide break-all">{BRAND.email}</a>
         </div>
       </div>
 
@@ -53,6 +61,13 @@ export default function Footer() {
         <p lang={locale} className="text-center">{BRAND.addressOneLine}</p>
         <p lang={locale} className="md:text-right text-center">{BRAND.phoneDisplay}</p>
       </div>
+
+      {/* Photo credit row */}
+      <p className="relative mx-auto max-w-[1480px] px-6 lg:px-10 mt-6 text-[10px] tracking-[0.28em] uppercase text-deep/40 text-center">
+        <a href={BRAND.photoCreditUrl} target="_blank" rel="noreferrer" className="hover:text-gold transition-colors duration-700 ease-glide">
+          {BRAND.photoCredit}
+        </a>
+      </p>
     </footer>
   );
 }

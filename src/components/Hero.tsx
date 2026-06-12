@@ -1,24 +1,21 @@
 'use client';
 
+import Image from 'next/image';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { BRAND, COPY } from '@/lib/content';
+import { BRAND, COPY, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import SwanGlide from './SwanGlide';
 
 /**
  * HERO — asymmetric riverfront layout.
- * Type weighted right, an open river on the left where a swan glides
- * across leaving a rippling wake that settles into the wordmark.
+ * Left 5 columns: the table-on-terrace photograph, half-faded behind
+ * the ivory wash, with the swan-glide signature animation overlaid.
+ * Right 7 columns: eyebrow, big Playfair title, body, gold CTAs.
  *
- * Layout structure:
- *   left  (5/12 on lg) — open ivory + signature swan glide animation
- *   right (7/12 on lg) — eyebrow · BIG Playfair title · body · CTAs
- *
- * Deliberate divergence from the other Song Wat builds in this series:
- *   - palette: ivory + gold + slate, NOT ink/vermillion/oxblood
- *   - hero layout: asymmetric typographic right, NOT centered
- *   - motion: glide easing, NOT snappy reveal
+ * Photo: Pad Thai + Pad Sam Meun + Tom Yum + Morning Glory + coconut
+ * on the pink-painted terrace railing, river behind. The most
+ * brand-recognisable Hansa shot in the press.
  */
 export default function Hero() {
   const { locale } = useLocale();
@@ -29,9 +26,9 @@ export default function Hero() {
     target: ref,
     offset: ['start start', 'end start'],
   });
-  const yLeft  = useTransform(scrollYProgress, [0, 1], ['0%', '8%']);
-  const yRight = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.35]);
+  const yLeft   = useTransform(scrollYProgress, [0, 1], ['0%', '6%']);
+  const yRight  = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.35]);
 
   return (
     <section
@@ -42,7 +39,39 @@ export default function Hero() {
       {/* Caustics drift across the ivory backdrop */}
       <div className="absolute inset-0 caustics" aria-hidden />
 
-      {/* Signature moment: a swan glides across the upper third leaving a wake */}
+      {/* Background photograph — left half of viewport on lg, full-bleed
+          on mobile. Heavy ivory wash so the type still reads. */}
+      <div className="absolute inset-0 lg:right-[40%] overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={PHOTOS.tableSpread}
+          srcSet={`${PHOTOS.sunset} 700w, ${PHOTOS.tableSpread} 1400w`}
+          sizes="(max-width: 1024px) 100vw, 60vw"
+          alt="A full Thai table on the riverfront terrace at Hansa River House — pad Thai with grilled river prawn, pad sam meun, tom yum, morning glory salad and a fresh coconut, pink terrace railing, Chao Phraya River beyond."
+          loading="eager"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover object-[50%_50%]"
+          style={{ filter: 'saturate(0.92) contrast(0.98)' }}
+        />
+        {/* Heavy ivory veil */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(247,242,232,0.86) 0%, rgba(247,242,232,0.72) 50%, rgba(247,242,232,0.94) 100%)',
+          }}
+        />
+        {/* Soft gold caustic wash bottom-left */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(700px 460px at 15% 80%, rgba(184,146,75,0.16) 0%, rgba(184,146,75,0) 70%)',
+          }}
+        />
+      </div>
+
+      {/* Signature swan glide */}
       <div className="absolute top-[14%] left-0 right-0 pointer-events-none" aria-hidden>
         <SwanGlide />
       </div>
@@ -51,12 +80,11 @@ export default function Hero() {
         style={reduced ? undefined : { opacity }}
         className="relative z-10 mx-auto max-w-[1480px] px-6 lg:px-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[calc(100svh-80px)]"
       >
-        {/* LEFT — open river */}
+        {/* LEFT — small Sanskrit caption + horizon line */}
         <motion.div
           style={reduced ? undefined : { y: yLeft }}
           className="hidden lg:flex lg:col-span-5 relative h-full items-end pb-16"
         >
-          {/* Subtle horizontal river line on the left to anchor the swan path */}
           <div className="w-full">
             <svg viewBox="0 0 600 220" className="w-full h-auto" aria-hidden>
               <defs>
@@ -66,20 +94,18 @@ export default function Hero() {
                   <stop offset="100%" stopColor="var(--slate)" stopOpacity="0" />
                 </linearGradient>
               </defs>
-              {/* Two horizon lines — quiet, like a river surface */}
               <line x1="0" y1="120" x2="600" y2="120" stroke="url(#river-fade)" strokeWidth="0.7" />
               <line x1="0" y1="138" x2="600" y2="138" stroke="url(#river-fade)" strokeWidth="0.4" strokeDasharray="2 6" className="wake-line" />
               <line x1="0" y1="158" x2="600" y2="158" stroke="url(#river-fade)" strokeWidth="0.3" strokeDasharray="1 9" className="wake-line" />
-              {/* Sanskrit hamsa caption */}
               <text x="40" y="200" fontFamily="var(--font-cormorant), Cormorant Garamond, serif"
-                fontStyle="italic" fontSize="18" fill="var(--slate-d)" opacity="0.55">
+                fontStyle="italic" fontSize="18" fill="var(--slate-d)" opacity="0.65">
                 {BRAND.meaning.en}
               </text>
             </svg>
           </div>
         </motion.div>
 
-        {/* RIGHT — type weighted right, asymmetric */}
+        {/* RIGHT — typographic stack */}
         <motion.div
           style={reduced ? undefined : { y: yRight }}
           className="lg:col-span-7 flex flex-col items-start lg:pl-6 lg:border-l border-[var(--rule-gold)] py-16 lg:py-0"
@@ -109,7 +135,7 @@ export default function Hero() {
             initial={reduced ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4, ease: [0.16, 0.84, 0.30, 1], delay: 0.95 }}
-            className="font-sans text-[15.5px] leading-[1.85] text-deep/75 max-w-xl mt-9"
+            className="font-sans text-[15.5px] leading-[1.85] text-deep/80 max-w-xl mt-9"
             lang={locale}
           >
             {COPY.hero.body[locale]}
@@ -130,7 +156,7 @@ export default function Hero() {
             </a>
             <a
               href="#occasions"
-              className="font-sans text-[11.5px] uppercase tracking-[0.32em] text-deep/75 hover:text-gold transition-colors duration-700 ease-glide underline underline-offset-[10px] decoration-gold/45 decoration-[0.5px] pt-3 sm:pt-0"
+              className="font-sans text-[11.5px] uppercase tracking-[0.32em] text-deep/80 hover:text-gold transition-colors duration-700 ease-glide underline underline-offset-[10px] decoration-gold/45 decoration-[0.5px] pt-3 sm:pt-0"
               lang={locale}
             >
               {COPY.hero.ctaOccasion[locale]}
@@ -139,7 +165,7 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll hint — soft drift down */}
+      {/* Scroll hint */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

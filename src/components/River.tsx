@@ -1,19 +1,34 @@
 'use client';
 
-import { COPY } from '@/lib/content';
+import { COPY, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
 /**
- * RIVER — a quiet typographic interlude between Occasions and Reserve.
- * Three drifting long-tail-boat SVGs across the bottom, the title set
- * in italic Cormorant. Acts as a breath.
+ * RIVER — quiet typographic interlude. Wide sunset image as a faint
+ * silhouette behind the headline; three long-tail boats drifting along
+ * the bottom horizon.
  */
 export default function River() {
   const { locale } = useLocale();
   return (
     <section id="river" className="relative bg-ivory text-deep py-28 lg:py-36 overflow-hidden border-y border-[var(--rule)]">
       <div className="absolute inset-0 caustics" aria-hidden />
+
+      {/* Faint sunset photograph behind the text */}
+      <div className="absolute inset-0 opacity-25 pointer-events-none">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={PHOTOS.sunsetWide}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover object-[50%_60%]"
+        />
+        <div className="absolute inset-0"
+          style={{ background: 'linear-gradient(180deg, rgba(247,242,232,0.85) 0%, rgba(247,242,232,0.65) 50%, rgba(247,242,232,0.9) 100%)' }} />
+      </div>
 
       <div className="relative mx-auto max-w-[1180px] px-6 lg:px-10 text-center">
         <Reveal>
@@ -27,7 +42,7 @@ export default function River() {
           </h2>
           <span className="gold-rule wide mx-auto mt-10 inline-block" />
           <p
-            className="font-sans text-[15.5px] leading-[1.95] text-deep/75 max-w-[60ch] mt-9 mx-auto"
+            className="font-sans text-[15.5px] leading-[1.95] text-deep/80 max-w-[60ch] mt-9 mx-auto"
             lang={locale}
           >
             {COPY.river.body[locale]}
@@ -35,7 +50,7 @@ export default function River() {
         </Reveal>
       </div>
 
-      {/* Three long-tail boats drifting at three different paces along the bottom */}
+      {/* Long-tail boats drifting across the bottom */}
       <div className="relative mt-16 lg:mt-20 h-24">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="xMidYMid meet" className="absolute inset-0 w-full h-full" aria-hidden>
           <defs>
@@ -48,7 +63,6 @@ export default function River() {
           <line x1="0" y1="64" x2="1200" y2="64" stroke="url(#river-h)" strokeWidth="0.8" />
           <line x1="0" y1="80" x2="1200" y2="80" stroke="url(#river-h)" strokeWidth="0.5" strokeDasharray="2 7" className="wake-line" />
           <line x1="0" y1="96" x2="1200" y2="96" stroke="url(#river-h)" strokeWidth="0.4" strokeDasharray="1 9" className="wake-line" style={{ animationDelay: '0.8s' }} />
-          {/* Long-tail boats — three at different x and slight scale */}
           <g className="swan-glide" style={{ animationDuration: '34s' }}>
             <LongTail />
           </g>
@@ -64,7 +78,6 @@ export default function River() {
   );
 }
 
-/** Long-tail boat silhouette — narrow hull, long tail-engine pole. */
 function LongTail() {
   return (
     <g transform="translate(0, 60)">
@@ -76,9 +89,7 @@ function LongTail() {
         fill="var(--slate-d)"
         opacity="0.78"
       />
-      {/* tail engine pole */}
       <line x1="0" y1="4" x2="-18" y2="-8" stroke="var(--slate-d)" strokeWidth="1.1" />
-      {/* prow detail */}
       <line x1="72" y1="3" x2="80" y2="-2" stroke="var(--gold)" strokeWidth="0.7" />
       <circle cx="80" cy="-2" r="0.7" fill="var(--gold)" />
     </g>
