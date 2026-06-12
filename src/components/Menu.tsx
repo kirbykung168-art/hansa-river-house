@@ -104,32 +104,47 @@ export default function Menu() {
           ))}
         </ul>
 
-        {/* DRINKS */}
-        <div className="grid lg:grid-cols-[1fr_1.3fr] gap-10 lg:gap-20 items-start">
-          <Reveal>
-            <p className="eyebrow text-deep/55 border-b border-[var(--rule)] pb-4 mb-7" lang={locale}>
+        {/* DRINKS · river-table.
+            Header row: eyebrow on the left, italic pull-quote on the
+            right — both visually anchor the section before the items
+            start. (Previously the pull-quote floated alone on the
+            far-right column under the items, leaving a wide dead
+            zone in the middle.)
+            Items grid: 2×2 on desktop so the four drinks fill the
+            full editorial width instead of stacking in a hollow
+            left column. */}
+        <Reveal>
+          <div className="grid lg:grid-cols-[1fr_1fr] gap-x-12 gap-y-4 items-end border-b border-[var(--rule)] pb-5 mb-9">
+            <p className="eyebrow text-deep/55" lang={locale}>
               {locale === 'en' ? 'Drinks · river-table' : 'เครื่องดื่ม · สำรับริมน้ำ'}
             </p>
-            <ul className="grid gap-5">
-              {m.drinks.map((d, i) => (
-                <li key={i} className="grid grid-cols-[1fr] gap-1">
-                  <p className="display italic text-[18px] text-deep" lang={locale}>{d.name[locale]}</p>
-                  <p className="font-sans text-[12.5px] text-deep/65 leading-relaxed" lang={locale}>{d.desc[locale]}</p>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-
-          <Reveal delay={0.2}>
-            <p className="font-sans text-[11px] uppercase tracking-[0.32em] text-deep/55 lg:text-right" lang={locale}>
-              {m.footnote[locale]}
-            </p>
-            <p className="display-italic text-deep/80 lg:text-right mt-8 leading-[1.4] max-w-[40ch] lg:ml-auto" style={{ fontSize: 'clamp(20px, 2.4vw, 28px)' }}>
+            <p
+              className="display-italic text-deep/80 lg:text-right leading-[1.35] max-w-[34ch] lg:ml-auto"
+              style={{ fontSize: 'clamp(18px, 1.9vw, 24px)' }}
+              lang={locale}
+            >
               <span className="text-gold">{locale === 'en' ? 'A long version,' : 'ค่อย ๆ,'}</span>{' '}
               {locale === 'en' ? 'unhurried, by the river.' : 'อย่างใจเย็น เคียงแม่น้ำ'}
             </p>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
+
+        <ul className="grid sm:grid-cols-2 gap-x-14 gap-y-7">
+          {m.drinks.map((d, i) => (
+            <Reveal key={i} delay={(i % 2) * 0.08}>
+              <li className="border-b border-[var(--rule)] pb-5">
+                <p className="display italic text-[20px] text-deep" lang={locale}>{d.name[locale]}</p>
+                <p className="font-sans text-[13px] text-deep/65 leading-[1.75] mt-2" lang={locale}>{d.desc[locale]}</p>
+              </li>
+            </Reveal>
+          ))}
+        </ul>
+
+        <Reveal delay={0.25}>
+          <p className="font-sans text-[11px] uppercase tracking-[0.32em] text-deep/55 mt-10 text-center" lang={locale}>
+            {m.footnote[locale]}
+          </p>
+        </Reveal>
       </div>
     </section>
   );

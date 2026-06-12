@@ -5,10 +5,16 @@ import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
 
 /**
- * STORY — cream section. Sunset terrace photograph on the right
- * (vertical 4:5 crop, gold corner brackets), pull-quote + drop-cap
- * body on the left. The pull-quote is the verbatim Passport & Stamps
- * line about long-tail boats and a fresh coconut.
+ * STORY — cream section. The full-table press photograph on the
+ * right (vertical 4:5 crop, gold corner brackets), pull-quote +
+ * drop-cap body on the left. The pull-quote is the verbatim
+ * Passport & Stamps line about long-tail boats and a fresh coconut.
+ *
+ * Photo choice: the press-shot of the whole table — pad Thai,
+ * tom yum, pad sam meun, morning glory, coconut, all laid out on
+ * the pink-painted railing with the river behind — reads more like
+ * an editorial Plate I dossier image here than it does as a hero.
+ * The hero now carries the lighter sunset-terrace shot instead.
  */
 export default function Story() {
   const { locale } = useLocale();
@@ -54,13 +60,14 @@ export default function Story() {
             <div className="relative aspect-[4/5] overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={PHOTOS.sunset}
-                srcSet={`${PHOTOS.sunset} 900w`}
+                src={PHOTOS.tableSpread}
+                srcSet={`${PHOTOS.tableSpread} 1100w`}
                 sizes="(max-width: 1024px) 100vw, 40vw"
-                alt="A guest seated on a bamboo stool on the Hansa River House terrace at sunset, facing the Chao Phraya River as the sky turns gold."
+                alt="The full Hansa River House table on the pink-painted terrace at sunset — pad Thai with grilled river prawn, tom yum, pad sam meun, morning glory salad and a fresh coconut, the Chao Phraya beyond."
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 w-full h-full object-cover object-[50%_50%]"
+                className="absolute inset-0 w-full h-full object-cover object-[55%_55%]"
+                style={{ filter: 'saturate(0.92) contrast(0.98)' }}
               />
               {/* Brass corner brackets */}
               <span aria-hidden className="absolute pointer-events-none" style={{ top: 12, left: 12, width: 26, height: 26, borderTop: '1.2px solid var(--gold)', borderLeft: '1.2px solid var(--gold)' }} />
@@ -69,8 +76,12 @@ export default function Story() {
               <div className="absolute inset-0 pointer-events-none"
                 style={{ background: 'linear-gradient(180deg, rgba(30,42,48,0) 60%, rgba(30,42,48,0.30) 100%)' }} />
             </div>
-            <figcaption className="font-sans text-[10.5px] uppercase tracking-[0.32em] text-deep/55 mt-5">
-              Plate I · the river at sunset
+            {/* mt-7 (not mt-5) so the caption clearly sits as figure
+                metadata rather than overlay text against the photo's
+                lower edge — gives it breathing room to read as an
+                editorial credit line. */}
+            <figcaption className="font-sans text-[10.5px] uppercase tracking-[0.32em] text-deep/55 mt-7">
+              Plate I · the table on the river
             </figcaption>
           </figure>
         </Reveal>

@@ -98,13 +98,26 @@ function GalleryTile({
       rel="noreferrer"
       className={`relative block overflow-hidden bg-ivory border border-[var(--rule)] group ${className ?? ''}`}
     >
+      {/* Photo treatment: at-rest the tile is desaturated + warmed by
+          a sepia tilt so the press shots read as editorial dossier
+          plates instead of an Instagram feed; hover restores full
+          colour over 900ms. The typography around the gallery (high-
+          contrast Playfair Didone, gold rules, italic Cormorant) sits
+          in the Tatler/Vogue register — full-saturation dish photos
+          fight that. Grayscale-on-rest is the same gesture the map
+          uses, so the gestures rhyme across the page. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={entry.src}
         alt={entry.alt}
         loading="lazy"
         decoding="async"
-        className="absolute inset-0 w-full h-full object-cover object-[50%_50%] group-hover:scale-[1.04] transition-transform duration-[2400ms] ease-glide"
+        className="absolute inset-0 w-full h-full object-cover object-[50%_50%] group-hover:scale-[1.04] transition-[transform,filter] duration-[2400ms] ease-glide"
+        style={{
+          filter: 'saturate(0.55) contrast(0.97) sepia(0.10)',
+        }}
+        onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.filter = 'saturate(1) contrast(1) sepia(0)'; }}
+        onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.filter = 'saturate(0.55) contrast(0.97) sepia(0.10)'; }}
       />
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: 'linear-gradient(180deg, rgba(30,42,48,0) 70%, rgba(30,42,48,0.30) 100%)' }} />

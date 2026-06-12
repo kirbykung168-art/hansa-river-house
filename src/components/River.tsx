@@ -3,11 +3,16 @@
 import { COPY, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
+import SwanGlide from './SwanGlide';
 
 /**
  * RIVER — quiet typographic interlude. Wide sunset image as a faint
- * silhouette behind the headline; three long-tail boats drifting along
- * the bottom horizon.
+ * silhouette behind the headline. The signature swan-glide gesture
+ * carries the bottom — gold-outlined ivory swan tracing a wake of
+ * dashed slate ripple lines across the page. This is the moment the
+ * brief calls for ("swan-glide signature moment") so it lives here
+ * at brand-defining scale, not as the three tiny grey boats that
+ * felt incidental in the earlier pass.
  */
 export default function River() {
   const { locale } = useLocale();
@@ -50,48 +55,32 @@ export default function River() {
         </Reveal>
       </div>
 
-      {/* Long-tail boats drifting across the bottom */}
-      <div className="relative mt-16 lg:mt-20 h-24">
-        <svg viewBox="0 0 1200 120" preserveAspectRatio="xMidYMid meet" className="absolute inset-0 w-full h-full" aria-hidden>
-          <defs>
-            <linearGradient id="river-h" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%"  stopColor="var(--slate)" stopOpacity="0" />
-              <stop offset="50%" stopColor="var(--slate)" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="var(--slate)" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <line x1="0" y1="64" x2="1200" y2="64" stroke="url(#river-h)" strokeWidth="0.8" />
-          <line x1="0" y1="80" x2="1200" y2="80" stroke="url(#river-h)" strokeWidth="0.5" strokeDasharray="2 7" className="wake-line" />
-          <line x1="0" y1="96" x2="1200" y2="96" stroke="url(#river-h)" strokeWidth="0.4" strokeDasharray="1 9" className="wake-line" style={{ animationDelay: '0.8s' }} />
-          <g className="swan-glide" style={{ animationDuration: '34s' }}>
-            <LongTail />
-          </g>
-          <g className="swan-glide" style={{ animationDuration: '46s', animationDelay: '6s' }}>
-            <g transform="translate(0, -8) scale(0.75)"><LongTail /></g>
-          </g>
-          <g className="swan-glide" style={{ animationDuration: '40s', animationDelay: '14s' }}>
-            <g transform="translate(0, 6) scale(0.85)"><LongTail /></g>
-          </g>
-        </svg>
-      </div>
-    </section>
-  );
-}
+      {/*
+        Signature swan-glide. Closer to the body copy than the old
+        boat strip (mt-10 vs mt-16) so the bottom of the section
+        doesn't feel orphaned. SwanGlide draws its own wake — three
+        pulsing dashed slate lines that fade in from both edges —
+        plus the swan body itself (ivory fill, gold outline, long
+        Cormorant-italic neck and a small triangle beak). One swan,
+        held large; the gesture is meant to be the brand mark, not
+        decoration.
+      */}
+      <Reveal delay={0.2}>
+        <div className="relative mt-10 lg:mt-14 max-w-[1280px] mx-auto px-4 lg:px-8">
+          <SwanGlide />
+        </div>
+      </Reveal>
 
-function LongTail() {
-  return (
-    <g transform="translate(0, 60)">
-      <path
-        d="M 6 4
-           C 18 0, 50 -2, 72 0
-           C 76 1, 76 5, 72 6
-           C 50 8, 18 8, 6 6 Z"
-        fill="var(--slate-d)"
-        opacity="0.78"
-      />
-      <line x1="0" y1="4" x2="-18" y2="-8" stroke="var(--slate-d)" strokeWidth="1.1" />
-      <line x1="72" y1="3" x2="80" y2="-2" stroke="var(--gold)" strokeWidth="0.7" />
-      <circle cx="80" cy="-2" r="0.7" fill="var(--gold)" />
-    </g>
+      {/* Address mark — closes the section instead of trailing empty
+          ivory. Same eyebrow register as the rest of the page so it
+          sits as quiet closing typography, not as a content block. */}
+      <Reveal delay={0.35}>
+        <p className="font-sans text-[10.5px] uppercase tracking-[0.42em] text-deep/45 text-center mt-10">
+          <span className="text-gold mr-3">◇</span>
+          {locale === 'en' ? '1616 Song Wat · the Chao Phraya · Bangkok' : '1616 ซองวัด · เจ้าพระยา · กรุงเทพฯ'}
+          <span className="text-gold ml-3">◇</span>
+        </p>
+      </Reveal>
+    </section>
   );
 }

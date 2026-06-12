@@ -9,13 +9,16 @@ import SwanGlide from './SwanGlide';
 
 /**
  * HERO — asymmetric riverfront layout.
- * Left 5 columns: the table-on-terrace photograph, half-faded behind
- * the ivory wash, with the swan-glide signature animation overlaid.
+ * Left 5 columns: the sunset-terrace photograph (silhouette against
+ * the Chao Phraya at golden hour), half-faded behind the ivory wash,
+ * with the swan-glide signature animation overlaid.
  * Right 7 columns: eyebrow, big Playfair title, body, gold CTAs.
  *
- * Photo: Pad Thai + Pad Sam Meun + Tom Yum + Morning Glory + coconut
- * on the pink-painted terrace railing, river behind. The most
- * brand-recognisable Hansa shot in the press.
+ * Photo choice — the sunset terrace is the most brand-coherent shot
+ * Hansa has: water-glow, silhouette, "for your occasions, on the
+ * river" register. The full-table press photo is warmer/more
+ * chromatic and so lives in Story instead, where it functions as
+ * Plate I of an editorial dossier.
  */
 export default function Hero() {
   const { locale } = useLocale();
@@ -44,21 +47,21 @@ export default function Hero() {
       <div className="absolute inset-0 lg:right-[40%] overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={PHOTOS.tableSpread}
-          srcSet={`${PHOTOS.sunset} 700w, ${PHOTOS.tableSpread} 1400w`}
+          src={PHOTOS.sunset}
+          srcSet={`${PHOTOS.sunset} 900w, ${PHOTOS.sunsetWide} 1600w`}
           sizes="(max-width: 1024px) 100vw, 60vw"
-          alt="A full Thai table on the riverfront terrace at Hansa River House — pad Thai with grilled river prawn, pad sam meun, tom yum, morning glory salad and a fresh coconut, pink terrace railing, Chao Phraya River beyond."
+          alt="A guest seated on a bamboo stool on the Hansa River House terrace at golden hour, facing the Chao Phraya as the sky turns gold and a long-tail boat slides past."
           loading="eager"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-cover object-[50%_50%]"
-          style={{ filter: 'saturate(0.92) contrast(0.98)' }}
+          className="absolute inset-0 w-full h-full object-cover object-[55%_45%]"
+          style={{ filter: 'saturate(0.78) contrast(0.96) brightness(1.04)' }}
         />
-        {/* Heavy ivory veil */}
+        {/* Heavy ivory veil — slightly cooler now that the photo is sunset-warm */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(90deg, rgba(247,242,232,0.86) 0%, rgba(247,242,232,0.72) 50%, rgba(247,242,232,0.94) 100%)',
+              'linear-gradient(90deg, rgba(247,242,232,0.88) 0%, rgba(247,242,232,0.74) 50%, rgba(247,242,232,0.95) 100%)',
           }}
         />
         {/* Soft gold caustic wash bottom-left */}
@@ -145,13 +148,12 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll hint */}
-      <div className="absolute bottom-9 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3">
-        <span className="text-deep/55 text-[10px] tracking-[0.42em] uppercase" lang={locale}>
-          {COPY.hero.scrollHint[locale]}
-        </span>
-        <span className="block w-px h-10 bg-gold origin-top scroll-pulse" />
-      </div>
+      {/*
+        Scroll cue removed — on shorter viewports it collided with the
+        primary CTA. The dual CTAs (Reserve a table + Enquire ·
+        occasions) make the affordance clear on their own; an extra
+        "drift down" pulse beneath them just stacks signals.
+      */}
     </section>
   );
 }

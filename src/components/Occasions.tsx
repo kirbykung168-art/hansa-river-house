@@ -70,7 +70,12 @@ export default function Occasions() {
 
         <Reveal delay={0.2}>
           <div className="border border-gold-l/35 p-8 lg:p-10 bg-deep/55 backdrop-blur-sm">
-            <p className="eyebrow text-gold-l border-b border-gold-l/30 pb-4 mb-7">
+            {/* Demoted: was gold-l + standard eyebrow weight, which
+                competed with "A table held for the moment." on the
+                left for the first read. The display title is the
+                emotional anchor; CAPACITY is just a label, so it
+                drops to ivory/45 + smaller tracking. */}
+            <p className="font-sans text-[10px] uppercase tracking-[0.36em] text-ivory/45 border-b border-ivory/15 pb-4 mb-7">
               {locale === 'en' ? 'Capacity' : 'จำนวนที่นั่ง'}
             </p>
             <ul className="space-y-6">
