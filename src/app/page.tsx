@@ -2,6 +2,7 @@ import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import Story from '@/components/Story';
 import Menu from '@/components/Menu';
+import Gallery from '@/components/Gallery';
 import Occasions from '@/components/Occasions';
 import River from '@/components/River';
 import Reserve from '@/components/Reserve';
@@ -11,13 +12,13 @@ import Footer from '@/components/Footer';
 /**
  * Hansa River House — single-page editorial site.
  *
- * Section order, swan-glide pacing:
- *   Hero · Story · Menu · Occasions (high-value) · River (breath) ·
- *   Reserve · Visit · Footer
+ * Section order (swan-glide pacing):
+ *   Hero · Story · Menu · Gallery · Occasions · River · Reserve ·
+ *   Visit · Footer
  *
- * Occasions is intentionally placed BEFORE the consumer reservation
- * flow so corporate / event planners see the venue offer before being
- * funneled to a standard table reservation.
+ * Gallery sits between the menu and occasions so the verified press
+ * photos do the heavy lifting (visual evidence) before the planner
+ * decision in Occasions.
  */
 export default function HomePage() {
   return (
@@ -26,6 +27,7 @@ export default function HomePage() {
       <Hero />
       <Story />
       <Menu />
+      <Gallery />
       <Occasions />
       <River />
       <Reserve />
