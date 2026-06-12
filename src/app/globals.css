@@ -223,3 +223,12 @@ body {
   }
   .river-breathe, .caustics::before, .swan-glide, .wake-line { animation: none !important; }
 }
+
+/* Scroll-hint pulse — replaces framer motion animation on the hero scroll cue. */
+.scroll-pulse {
+  animation: scroll-pulse 3.6s ease-in-out infinite;
+}
+@keyframes scroll-pulse {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.3; }
+  50%      { transform: scaleY(1);   opacity: 1; }
+}
