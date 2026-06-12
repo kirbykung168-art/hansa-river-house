@@ -110,43 +110,23 @@ export default function Hero() {
           style={reduced ? undefined : { y: yRight }}
           className="lg:col-span-7 flex flex-col items-start lg:pl-6 lg:border-l border-[var(--rule-gold)] py-16 lg:py-0"
         >
-          <motion.p
-            initial={reduced ? false : { opacity: 0, x: -8 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.4, ease: [0.16, 0.84, 0.30, 1], delay: 0.2 }}
-            className="eyebrow"
-            lang={locale}
-          >
+          <p className="eyebrow" lang={locale}>
             {COPY.hero.eyebrow[locale]}
-          </motion.p>
+          </p>
 
-          <motion.h1
-            initial={reduced ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.6, ease: [0.16, 0.84, 0.30, 1], delay: 0.45 }}
+          <h1
             className="display mt-6 text-deep max-w-[14ch] leading-[1.02]"
             style={{ fontSize: 'clamp(46px, 7.6vw, 124px)' }}
             lang={locale}
           >
             {COPY.hero.title[locale]}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={reduced ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4, ease: [0.16, 0.84, 0.30, 1], delay: 0.95 }}
-            className="font-sans text-[15.5px] leading-[1.85] text-deep/80 max-w-xl mt-9"
-            lang={locale}
-          >
+          <p className="font-sans text-[15.5px] leading-[1.85] text-deep/80 max-w-xl mt-9" lang={locale}>
             {COPY.hero.body[locale]}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={reduced ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4, ease: [0.16, 0.84, 0.30, 1], delay: 1.2 }}
-            className="mt-11 flex flex-col sm:flex-row items-start sm:items-center gap-5"
-          >
+          <div className="mt-11 flex flex-col sm:flex-row items-start sm:items-center gap-5">
             <a
               href="#reserve"
               className="btn btn-gold celebrate"
@@ -161,26 +141,17 @@ export default function Hero() {
             >
               {COPY.hero.ctaOccasion[locale]}
             </a>
-          </motion.div>
+          </div>
         </motion.div>
       </motion.div>
 
       {/* Scroll hint */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 1.4 }}
-        className="absolute bottom-9 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3"
-      >
+      <div className="absolute bottom-9 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3">
         <span className="text-deep/55 text-[10px] tracking-[0.42em] uppercase" lang={locale}>
           {COPY.hero.scrollHint[locale]}
         </span>
-        <motion.span
-          animate={{ y: [0, 12, 0], opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
-          className="block w-px h-10 bg-gold origin-top"
-        />
-      </motion.div>
+        <span className="block w-px h-10 bg-gold origin-top scroll-pulse" />
+      </div>
     </section>
   );
 }
