@@ -1,73 +1,69 @@
 'use client';
 
-import { BRAND, COPY, NAV_ITEMS } from '@/lib/content';
+import { BRAND, COPY } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
+import { HansaLockup } from './HansaWordmark';
+import { RedFan, RedFanStripe } from './RedFan';
 
-/**
- * FOOTER — quiet, three-column. Brand tagline, nav anchors, social.
- * Includes TikTok handle + a photo-credit line for the Nick @nickeatsg
- * press photographs used across the site.
- */
 export default function Footer() {
   const { locale } = useLocale();
   return (
-    <footer className="relative bg-cream text-deep border-t border-[var(--rule)] pt-16 pb-10 overflow-hidden">
-      <div className="absolute inset-0 caustics" aria-hidden />
-      <div className="relative mx-auto max-w-[1480px] px-6 lg:px-10 grid lg:grid-cols-[1.4fr_1fr_1fr] gap-12 items-start">
-        <div>
-          <a href="#top" className="display text-[28px] hover:text-gold transition-colors duration-700 ease-glide" aria-label={BRAND.name}>
-            {BRAND.name}
-          </a>
-          <p className="font-sans text-[13px] leading-relaxed text-deep/70 max-w-sm mt-4" lang={locale}>
-            {COPY.footer.tagline[locale]}
-          </p>
-          <p className="display-italic text-gold mt-5 text-[17px]">
-            {COPY.footer.credit[locale]}
-          </p>
-        </div>
-
-        <nav className="flex flex-col gap-3">
-          <p className="eyebrow text-gold mb-2">{locale === 'en' ? 'Browse' : 'หมวด'}</p>
-          {NAV_ITEMS.map((item) => (
-            <a key={item.href} href={item.href}
-              className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide"
-              lang={locale}
-            >
-              {item.label[locale]}
-            </a>
-          ))}
-          <a href="/sources"
-            className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide"
-            lang={locale}
-          >
-            {locale === 'en' ? 'Sources · what we verified' : 'แหล่งอ้างอิง'}
-          </a>
-        </nav>
-
-        <div className="flex flex-col gap-3">
-          <p className="eyebrow text-gold mb-2">{locale === 'en' ? 'Elsewhere' : 'ติดต่อ'}</p>
-          <a href={BRAND.instagramUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">Instagram · {BRAND.instagramHandle}</a>
-          <a href={BRAND.facebookUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">Facebook</a>
-          <a href={BRAND.tiktokUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">TikTok · {BRAND.tiktokHandle}</a>
-          <a href={BRAND.linktreeUrl} target="_blank" rel="noreferrer" className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide">Linktree</a>
-          <a href={`mailto:${BRAND.email}`} className="font-sans text-[12.5px] uppercase tracking-[0.32em] text-deep/70 hover:text-gold transition-colors duration-700 ease-glide break-all">{BRAND.email}</a>
-        </div>
+    <footer className="relative bg-deep text-ivory pt-24 pb-14 overflow-hidden">
+      {/* paper-grain on the dark deep */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none" aria-hidden
+        style={{
+          background:
+            'radial-gradient(ellipse at 30% 0%, rgba(168,97,42,0.18) 0%, transparent 60%),' +
+            'radial-gradient(ellipse at 80% 100%, rgba(108,138,153,0.15) 0%, transparent 60%)',
+        }}
+      />
+      <div className="absolute top-10 left-10 opacity-25 pointer-events-none" aria-hidden>
+        <RedFan size={48} spin />
+      </div>
+      <div className="absolute bottom-10 right-10 opacity-25 pointer-events-none" aria-hidden>
+        <RedFanStripe size={48} />
       </div>
 
-      <hr className="border-0 border-t border-[var(--rule-gold)] mt-12 opacity-60 relative" />
+      <div className="relative mx-auto max-w-[1280px] px-6 lg:px-10">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-12 items-start mb-16">
+          <div>
+            <HansaLockup tone="ivory" className="!items-start text-left" />
+            <p className="font-sans text-[13.5px] leading-[1.85] text-ivory/70 mt-8 max-w-md" lang={locale}>
+              {COPY.footer.tagline[locale]}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-8 lg:gap-12 text-left">
+            <div>
+              <p className="eyebrow" style={{ color: 'var(--coral-l)' }}>{locale === 'en' ? 'Find us' : 'หาเรือน'}</p>
+              <ul className="mt-5 space-y-3 font-sans text-[13.5px] text-ivory/85 leading-[1.7]">
+                <li>{BRAND.addressLine1}</li>
+                <li>{BRAND.addressLine2}</li>
+                <li><a className="underline underline-offset-[6px] decoration-coral-l/40 hover:text-coral-l transition-colors duration-700 ease-glide" href={`tel:${BRAND.phoneTel}`}>{BRAND.phoneDisplay}</a></li>
+                <li><a className="underline underline-offset-[6px] decoration-coral-l/40 hover:text-coral-l transition-colors duration-700 ease-glide" href={`mailto:${BRAND.email}`}>{BRAND.email}</a></li>
+              </ul>
+            </div>
+            <div>
+              <p className="eyebrow" style={{ color: 'var(--coral-l)' }}>{locale === 'en' ? 'Follow' : 'ติดตาม'}</p>
+              <ul className="mt-5 space-y-3 font-sans text-[13.5px] text-ivory/85 leading-[1.7]">
+                <li><a className="hover:text-coral-l transition-colors duration-700 ease-glide" target="_blank" rel="noreferrer" href={BRAND.instagramUrl}>Instagram · {BRAND.instagramHandle}</a></li>
+                <li><a className="hover:text-coral-l transition-colors duration-700 ease-glide" target="_blank" rel="noreferrer" href={BRAND.tiktokUrl}>TikTok · {BRAND.tiktokHandle}</a></li>
+                <li><a className="hover:text-coral-l transition-colors duration-700 ease-glide" target="_blank" rel="noreferrer" href={BRAND.facebookUrl}>Facebook</a></li>
+                <li><a className="hover:text-coral-l transition-colors duration-700 ease-glide" target="_blank" rel="noreferrer" href={BRAND.linktreeUrl}>Linktree</a></li>
+                <li><a className="hover:text-coral-l transition-colors duration-700 ease-glide" href="/sources">Sources</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-      <div className="relative mx-auto max-w-[1480px] px-6 lg:px-10 mt-8 grid md:grid-cols-3 gap-3 text-[10.5px] tracking-[0.32em] uppercase text-deep/55">
-        <p lang={locale} className="md:text-left text-center">© {new Date().getFullYear()} {BRAND.name}. {COPY.footer.rights[locale]}</p>
-        <p lang={locale} className="text-center">{BRAND.addressOneLine}</p>
-        <p lang={locale} className="md:text-right text-center">{BRAND.phoneDisplay}</p>
+        <div className="border-t border-ivory/15 pt-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+          <p className="font-sans text-[10.5px] uppercase tracking-[0.42em] text-ivory/55">
+            © {new Date().getFullYear()} {BRAND.name} · {COPY.footer.rights[locale]}
+          </p>
+          <p className="display-italic text-ivory/65 text-[15px]" lang={locale}>
+            {COPY.footer.credit[locale]} · <span className="text-coral-l">🙏</span>
+          </p>
+        </div>
       </div>
-
-      {/* Photo credit row */}
-      <p className="relative mx-auto max-w-[1480px] px-6 lg:px-10 mt-6 text-[10px] tracking-[0.28em] uppercase text-deep/40 text-center">
-        <a href={BRAND.photoCreditUrl} target="_blank" rel="noreferrer" className="hover:text-gold transition-colors duration-700 ease-glide">
-          {BRAND.photoCredit}
-        </a>
-      </p>
     </footer>
   );
 }

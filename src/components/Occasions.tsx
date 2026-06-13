@@ -3,11 +3,14 @@
 import { COPY, BRAND, PHOTOS } from '@/lib/content';
 import { useLocale } from './LanguageProvider';
 import Reveal from './Reveal';
+import { RedFan } from './RedFan';
 
 /**
- * OCCASIONS — slate-blue section with the alt sunset terrace shot
- * full-bleed behind a dark wash. The card on the right holds capacity
- * tiers + email enquiry CTA.
+ * OCCASIONS — slate-blue section with the upper-floor photo full-bleed
+ * behind a dark wash. The capacity card on the right is restyled as a
+ * "registry ledger" — numbered tier rows with hairline coral rules,
+ * a ribbon at the top, and a single red-fan ornament tucked into the
+ * corner instead of the previous floating leaf curl.
  */
 export default function Occasions() {
   const { locale } = useLocale();
@@ -17,41 +20,38 @@ export default function Occasions() {
   const mailto = `mailto:${BRAND.email}?subject=${subject}&body=${body}`;
 
   return (
-    <section id="occasions" className="relative text-ivory py-28 lg:py-36 overflow-hidden">
-      {/* Background photograph */}
+    <section id="occasions" className="relative text-ivory py-28 lg:py-40 overflow-hidden">
+      {/* Background photograph — upper floor with red fan chain */}
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={PHOTOS.sunsetAlt}
+          src={PHOTOS.upperFloor}
           alt=""
           aria-hidden
           loading="lazy"
           decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-[50%_50%]"
         />
-        {/* Dark slate wash */}
         <div className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(110deg, rgba(30,42,48,0.94) 0%, rgba(63,85,96,0.88) 55%, rgba(30,42,48,0.92) 100%)',
+              'linear-gradient(110deg, rgba(30,42,48,0.92) 0%, rgba(63,85,96,0.86) 55%, rgba(30,42,48,0.92) 100%)',
           }} />
-        {/* Soft gold caustic */}
         <div className="absolute inset-0"
           style={{
-            background: 'radial-gradient(900px 600px at 75% 30%, rgba(184,146,75,0.18) 0%, rgba(184,146,75,0) 60%)',
+            background: 'radial-gradient(900px 600px at 75% 30%, rgba(197,104,61,0.22) 0%, rgba(197,104,61,0) 60%)',
           }} />
       </div>
       <div className="absolute inset-0 river-breathe pointer-events-none" aria-hidden />
 
-      {/* faint gold leaf curl at top-left */}
-      <svg viewBox="0 0 240 160" className="absolute top-0 left-0 w-[260px] h-auto opacity-30" aria-hidden>
-        <path d="M 20 80 C 60 30, 140 30, 200 70 C 180 90, 130 95, 90 90 C 65 87, 40 92, 20 80 Z"
-          fill="none" stroke="var(--gold-l)" strokeWidth="0.8" />
-      </svg>
+      {/* Red-fan corner ornaments */}
+      <div className="absolute top-6 right-6 lg:top-10 lg:right-10 opacity-80" aria-hidden>
+        <RedFan size={56} spin />
+      </div>
 
       <div className="relative mx-auto max-w-[1480px] px-6 lg:px-10 grid lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-start">
         <Reveal>
-          <p className="eyebrow text-gold-l">{o.eyebrow[locale]}</p>
+          <p className="eyebrow" style={{ color: 'var(--coral-l)' }}>{o.eyebrow[locale]}</p>
           <h2
             className="display leading-[1.04] mt-5"
             style={{ fontSize: 'clamp(36px, 5.4vw, 88px)' }}
@@ -59,40 +59,57 @@ export default function Occasions() {
           >
             {o.title[locale]}
           </h2>
-          <span className="block w-32 h-px bg-gold-l mt-9 opacity-70" />
+          <span className="block w-32 h-px bg-coral-l mt-9 opacity-70" />
           <p
             className="font-sans text-[15.5px] leading-[1.95] text-ivory/85 mt-9 max-w-[58ch]"
             lang={locale}
           >
             {o.body[locale]}
           </p>
+
+          {/* CTA */}
+          <a
+            href={mailto}
+            className="mt-11 inline-flex items-center gap-3 btn"
+            style={{
+              borderColor: 'var(--coral-l)',
+              color: 'var(--ivory)',
+              background: 'transparent',
+            }}
+            lang={locale}
+          >
+            {o.cta[locale]} <span className="btn-arrow">→</span>
+          </a>
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="border border-gold-l/35 p-8 lg:p-10 bg-deep/55 backdrop-blur-sm">
-            {/* Demoted: was gold-l + standard eyebrow weight, which
-                competed with "A table held for the moment." on the
-                left for the first read. The display title is the
-                emotional anchor; CAPACITY is just a label, so it
-                drops to ivory/45 + smaller tracking. */}
-            <p className="font-sans text-[10px] uppercase tracking-[0.36em] text-ivory/45 border-b border-ivory/15 pb-4 mb-7">
+          <div className="relative border border-coral-l/35 p-8 lg:p-10 bg-deep/55 backdrop-blur-sm">
+            {/* "ledger" head ribbon */}
+            <div
+              className="absolute -top-3 left-8 px-3 py-1 font-sans text-[9.5px] uppercase tracking-[0.42em] text-ivory"
+              style={{ background: 'var(--coral)' }}
+            >
+              {locale === 'en' ? 'House registry' : 'สมุดเรือน'}
+            </div>
+
+            <p className="font-sans text-[10px] uppercase tracking-[0.36em] text-ivory/45 border-b border-ivory/15 pb-4 mb-7 mt-2">
               {locale === 'en' ? 'Capacity' : 'จำนวนที่นั่ง'}
             </p>
             <ul className="space-y-6">
               {o.capacities.map((c, i) => (
-                <li key={i} className="grid grid-cols-[34px_1fr] gap-5 items-baseline border-b border-gold-l/20 pb-5 last:border-0">
-                  <span className="display italic text-gold-l/85 text-lg tabular-nums" aria-hidden>
-                    {String(i + 1).padStart(2, '0')}
+                <li key={i} className="grid grid-cols-[40px_1fr] gap-5 items-baseline border-b border-coral-l/25 pb-5 last:border-0">
+                  <span className="display-italic text-coral-l/95 text-[28px] leading-none tabular-nums" aria-hidden>
+                    {['I', 'II', 'III'][i]}
                   </span>
-                  <p className="display text-[18px] leading-snug" lang={locale}>{c[locale]}</p>
+                  <p className="display text-[19px] leading-snug" lang={locale}>{c[locale]}</p>
                 </li>
               ))}
             </ul>
-            <a href={mailto} className="btn btn-gold celebrate mt-9" lang={locale}>
-              {o.cta[locale]} <span className="btn-arrow">→</span>
-            </a>
-            <p className="font-sans text-[11px] tracking-[0.32em] uppercase text-ivory/55 mt-6">
-              {BRAND.email}
+
+            <p className="font-sans text-[11px] text-ivory/65 mt-8 leading-[1.85]" lang={locale}>
+              {locale === 'en'
+                ? 'Cake, candles, flowers and a slower kitchen pace on request. Enquiries by email — we reply with a held table and a sample running order.'
+                : 'เค้ก เทียน ดอกไม้ และจังหวะครัวที่ช้าลงตามที่ขอ · สอบถามทางอีเมล เราจะตอบกลับพร้อมโต๊ะที่ถูกจองและลำดับครัวตัวอย่าง'}
             </p>
           </div>
         </Reveal>
