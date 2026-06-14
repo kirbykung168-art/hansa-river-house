@@ -39,10 +39,40 @@ export const metadata: Metadata = {
     title: 'Hansa River House — Riverfront on Song Wat, Bangkok',
     description: 'A graceful two-storey wooden house on Song Wat. Table set for celebrations.',
     type: 'website', siteName: 'Hansa River House', url: SITE,
+    locale: 'en_US',
+    alternateLocale: ['th_TH'],
+    images: [
+      {
+        url: '/og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Hansa River House — riverfront wooden house on Song Wat, Chao Phraya at golden hour',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hansa River House — Riverfront on Song Wat, Bangkok',
+    description: 'A graceful two-storey wooden house on Song Wat. Table set for celebrations.',
     images: ['/og.jpg'],
   },
-  twitter: { card: 'summary_large_image', images: ['/og.jpg'] },
-  alternates: { canonical: SITE },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  alternates: {
+    canonical: SITE,
+    languages: {
+      'en-TH': SITE,
+      'th-TH': SITE,
+      'x-default': SITE,
+    },
+  },
+  themeColor: '#1E2A30',
+  manifest: undefined,
 };
 
 const RESTAURANT_JSONLD = {
@@ -74,7 +104,7 @@ const RESTAURANT_JSONLD = {
       closes: '20:00',
     },
   ],
-  sameAs: [BRAND.instagramUrl, BRAND.facebookUrl, BRAND.linktreeUrl],
+  sameAs: [BRAND.instagramUrl, BRAND.facebookUrl, BRAND.linktreeUrl, BRAND.tiktokUrl],
 };
 
 const MENU_JSONLD = {
